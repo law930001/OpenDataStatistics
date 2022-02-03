@@ -34,15 +34,25 @@ def main():
     for file_name in tqdm(natsorted(os.listdir(data_dir))):
 
         time = get_time(file_name.replace('.csv',''))
+
+        if time.split('/')[0] in ['2020']:
+            pass
+        else:
+            continue
+
         time_all.append(time)
 
         df = pd.read_csv(data_dir + file_name)
 
         file = df.values.tolist()
 
+
         for line in file:
 
             nation, name, N = str(line[1]), str(line[2]), str(line[7])
+
+            if nation != '中華民國':
+                continue
 
             name = name.replace('?', '')
             N = N.replace(',', '')
